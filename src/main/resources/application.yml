@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: Services-api-gateway-Infrastructure
+server:
+  port: 8788
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      #服务注册的Eureka Server地址
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+#API 网关及路由配置
+zuul:
+  ignoredServices: '*'
+  routes:
+    #通过使用pms前缀访问所有 Participants-Management-Service 提供的API
+    Participants-Management-Service: /pms/**
+
+#负载均衡配置
+ribbon:
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
